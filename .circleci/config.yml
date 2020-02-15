@@ -52,10 +52,10 @@ jobs: # a collection of steps
             scp -Br $ARCHIVE $SSH_USER@$SSH_HOST:$STAGE_PATH$ARCHIVE
       - run:
           name: Extract Archive
-          command: ssh $SSH_USER@$SSH_HOST "cd $STAGE_PATH && mkdir $DESTINATION-temp && tar -xzvf $ARCHIVE -C $DESTINATION-temp && rm -rf"
+          command: ssh $SSH_USER@$SSH_HOST "cd $STAGE_PATH && mkdir $DESTINATION-temp && tar -xzvf $ARCHIVE -C $DESTINATION-temp && rm $ARCHIVE"
       - run:
           name: Overwrite
-          command: ssh $SSH_USER@$SSH_HOST "cd $STAGE_PATH && rm -rf $DESTINATION && mv -r $DESTINATION-temp $DESTINATION"
+          command: ssh $SSH_USER@$SSH_HOST "cd $STAGE_PATH && rm -rf $DESTINATION && mv $DESTINATION-temp $DESTINATION"
 workflows:
   version: 2
   build-and-deploy:
