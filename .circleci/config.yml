@@ -7,6 +7,10 @@ jobs: # a collection of steps
     working_directory: ~/azulecast-api # directory where steps will run
     steps: # a set of executable commands
       - checkout # special step to check out source code to working directory
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
     #    - run: sudo apt install -y libsqlite3-dev zlib1g-dev
     #    - run: sudo docker-php-ext-install zip
     #    - run: sudo composer self-update
@@ -40,6 +44,8 @@ jobs: # a collection of steps
       enabled: true
     working_directory: ~/azulecast-api
     steps:
+      - attach_workspace:
+          at: .
       #- checkout
       - run:
           name: Compress archive
